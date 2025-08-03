@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@import "tailwind-scrollbar-hide/v4";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme{
+    --color-primary-dark:#120338;
+    --color-primary-light:#efdbff;
+    --color-dash-light:#f9f0ff;
+    --color-dash-dark:#030852;
+    
+    --color-boxes-light:#ff85c0;
+    --color-boxes-dark:#780650;
+    --color-secondary-dark:#22075e;
+    --color-secondary-light:#d3adf7;
+
+    --color-accent-dark:#efdbff;
+    --color-accent-light:#9254de;
+   
+
+}
