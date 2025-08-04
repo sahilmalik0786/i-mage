@@ -26,7 +26,7 @@ const {isAuthenticated} = useSelector((state)=>state.user)
             <span className={styles.span}>Images?</span> <br /> NOT ANYMORE
           </h1>
         </div>
-         {isAuthenticated ? <HoverArrowBtn children={"Go to Dashboard"} desti={'/dashboard'}/> : <HoverArrowBtn children={"get started"}/>}
+         {isAuthenticated ? <HoverArrowBtn children={"Go to Dashboard"} desti={'/dashboard'}/> : <HoverArrowBtn children={"get started"} desti={'/auth/login'}/>}
            <motion.div whileHover={{rotate:6 }} transition={{duration:0.3 , ease:'backOut'}} className="w-14  h-26 mt-4">
         <img className="w-full h-full object-fit dark:invert" src={arrowpng} alt="" />
       </motion.div>
