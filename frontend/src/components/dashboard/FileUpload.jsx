@@ -202,13 +202,13 @@ const handleClick =()=>{
           {loading ? 'Analyzing...' : 'Submit'}
          </button>
       )}
-      {
+      {/* {
         imageUploaded && selectedRole && initialized (
          <button className='' onClick={handleSubmitNew}>
           submit new 
          </button>
         ) 
-      }
+      } */}
 
       {/* Result Display */}
       {/* {res && (
