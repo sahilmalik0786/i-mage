@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 function connectToDb(){
-    mongoose.connect('mongodb://localhost:27017/captiongenerator')
+    mongoose.connect(process.env.MONGODB_URI)
     .then(()=>{
         console.log('connected to db')
     })
