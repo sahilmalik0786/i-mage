@@ -63,7 +63,7 @@ const handleClick =()=>{
     };
 
     formData.append('role', JSON.stringify(roleData));
-    !initialized &&  handlefetch(formData)
+    !initialized && handlefetch(formData)
   };
 
   return (
