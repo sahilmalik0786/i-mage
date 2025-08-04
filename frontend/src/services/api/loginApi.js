@@ -2,7 +2,7 @@ export const login = async (data) => {
   try {
     const res = await fetch("https://i-mage-enwv.onrender.com/api/auth/login", {
       method: "POST",
-      credentials:'include',
+      // credentials:'include',
       headers: {
         "Content-Type": "application/json",
       },
