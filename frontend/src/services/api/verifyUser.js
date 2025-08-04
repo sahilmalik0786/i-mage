@@ -1,6 +1,6 @@
 export const verifyUser = async ()=>{
     try {
-        const res = fetch('http://localhost:3000/api/auth/verify',{
+        const res = fetch('https://i-mage-enwv.onrender.com/api/auth/verify',{
         method:'GET',
         credentials:'include',
     })

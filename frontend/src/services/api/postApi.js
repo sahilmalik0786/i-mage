@@ -1,6 +1,6 @@
 export const upload = async(data)=>{
   try {
-      const res = await fetch('http://localhost:3000/api/generate',{
+      const res = await fetch('https://i-mage-enwv.onrender.com/api/generate',{
         method:'POST',
         credentials:'include',
         body: data
