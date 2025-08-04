@@ -32,9 +32,9 @@ const Login = () => {
   }
 
    
-  // if (isAuthenticated) {
-  //   return <Navigate to='dashboard' state={{ from: location }} replace />;
-  // }
+  if (isAuthenticated) {
+    return <Navigate to='/dashboard'  />;
+  }
   return(
     <div className="h-full xl:w-5xl  p-2 mx-auto "> <h1 className="text-center text-accent-light dark:text-accent-dark mt-10 text-3xl">
       Welcome ! 

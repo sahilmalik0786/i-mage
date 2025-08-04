@@ -7,13 +7,16 @@ const resformater = require("../utils/responseFormatter")
 async function generateCaption(req, res){
    
  
+const {role} = req.body
+ const rol = JSON.parse(role)
+
  const file = req.file
- const response = await generateImageCaption(file)
- const captions =  await resformater(response)
+ const response = await generateImageCaption(file,rol)
+//  const captions =  await resformater(response)
 
  res.status(201).json({
    msg:'done',
-   captions
+   response
  })
     
 }

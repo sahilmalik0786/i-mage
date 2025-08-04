@@ -1,6 +1,7 @@
 import React from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 const Modal = () => {
   const isOpen = useSelector((state) => state.menu.value);
   return (
@@ -24,9 +25,17 @@ const Modal = () => {
         animate={{ width: "100%", height: "100%", borderRadius: "0px"  ,}}
         exit={{width:0,height:0 , borderBottomLeftRadius: 40  }}
         transition={{ duration: 0.3 }}
-          className="fixed top-16 right-0 z-100 bg-red-900 p-1 "
+          className="fixed top-16 right-0 z-100  bg-red-900 p-1 "
         >
-          Modal
+          <div className="w-full h-full flex items-center justify-center flex-col">
+            <NavLink to={'/'}>
+            Home 
+            </NavLink>
+            <NavLink to={'/dashboard'} >
+              Dashboard
+            </NavLink>
+          </div>
+          
         </motion.div> 
   );
 };
