@@ -3,7 +3,7 @@ const transporter = require('./transporter.service');
 
 const sendVerificationEmail = async (toEmail, token) => {
   console.log(token)
-  const verificationLink = `https://https://i-mage-delta.vercel.app//verify-email?token=${token}`; // update with frontend URL
+  const verificationLink = `https://i-mage-delta.vercel.app//verify-email?token=${token}`; // update with frontend URL
   
   await transporter.sendMail({  
     from: `"My App" <${process.env.EMAIL_USER}>`,
