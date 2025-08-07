@@ -53,7 +53,7 @@ const Modal = () => {
             </NavLink> :  <NavLink to={'/auth/login'} onClick={handleModalVisible} >
               Get Started
             </NavLink>}
-           {isAuthenticated &&  <button className="bg-accent-light w-fit dark:bg-accent-dark rounded text-white dark:text-black px-1 text-lg">
+           {isAuthenticated &&  <button className="bg-accent-light w-fit dark:bg-accent-dark rounded text-white dark:text-black px-1 text-lg" onClick={handleLogout}>
               logout
             </button>}
              </div>
