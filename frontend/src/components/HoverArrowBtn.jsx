@@ -3,7 +3,7 @@ import { RiArrowDownLongLine } from '@remixicon/react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export function HoverArrowBtn({children, desti}) {
+export function HoverArrowBtn({children, desti , onclick}) {
   const navigate = useNavigate()
   const [isHovered, setIsHovered] = useState(false);
   const handleClick = (desti)=>{
@@ -30,6 +30,7 @@ export function HoverArrowBtn({children, desti}) {
         transition: { duration: 0.2 ,ease:'linear'}
       }}
       onTap={()=>handleClick(desti)}
+      onClick={onclick}
     >
       {children}
       <motion.span

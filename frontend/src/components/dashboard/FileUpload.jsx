@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { generate, setNew } from '../../store/features/postSlice';
 import { toast } from 'react-toastify';
 import styles from './fileInp.module.css'
+import { userHistory } from '../../store/features/userHistorySlice';
 
-const roleOptions = ['caption', 'study', 'admin'];
+const roleOptions = ['caption', 'study'];
 const platformOptions = ['instagram', 'twitter'];
 const Types = ['dark humour', 'serious'];
 
@@ -32,10 +33,11 @@ const handleClick =()=>{
     const handlefetch = async(formData)=>{
        try {
         await  dispatch(generate(formData)).unwrap()
-        toast('generated successfully')
+        await dispatch(userHistory()).unwrap()
+        toast.success('generated successfully')
      } catch (error) {
         console.log(error)
-        toast(error)
+        toast.error(error)
      }
     }
     const handleSubmitNew = ()=>{
@@ -67,7 +69,7 @@ const handleClick =()=>{
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-md">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-md ">
       {/* Step 1: Upload Image */}
       <div className="space-y-2">
         <label className="block font-medium">Upload Image</label>
@@ -75,7 +77,7 @@ const handleClick =()=>{
         onClick={handleClick}
         className="cursor-pointer border border-dashed border-purple-500 rounded-xl p-6 text-center text-purple-700 hover:bg-purple-50 transition"
       >
-        <p className="text-sm">Click to upload or drag and drop</p>
+        <p className="text-sm dark:text-white">Click to upload or drag and drop</p>
         <p className="text-xs text-gray-400">PNG, JPG, JPEG up to 5MB</p>
       </div>}
         <input

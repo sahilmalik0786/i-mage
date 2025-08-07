@@ -1,4 +1,6 @@
 export const login = async (data) => {
+  // https://i-mage-enwv.onrender.com
+ console.log(data)
   try {
     const res = await fetch("https://i-mage-enwv.onrender.com/api/auth/login", {
       method: "POST",
@@ -8,7 +10,7 @@ export const login = async (data) => {
       },
       body: JSON.stringify(data),
     })
-    
+    console.log(res)
         return res
    
   } catch (error) {

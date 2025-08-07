@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { createBrowserRouter } from 'react-router-dom'
 import App from '../App'
 import Home from '../pages/Home'
@@ -9,6 +9,7 @@ import AuthForm from '../components/Auth/AuthForm'
 
 import ProtectedRoute from '../components/Auth/ProtectedRoute'
 import DashboradPage from '../pages/DashboradPage'
+import EmailVerify from '../components/Auth/EmailVerify'
 
 const router = createBrowserRouter([
     {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
         ],
         
     },
+    {
+        path:'/verify-email',
+        element:<EmailVerify/>
+    }
   
 ])
 

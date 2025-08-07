@@ -1,4 +1,4 @@
-import { NavLink, useLocation, useParams } from "react-router-dom";
+import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import {
   RiMenu4Line,
@@ -14,6 +14,8 @@ import { isVisible } from "../store/features/menuSlice";
 
 import { HoverArrowBtn } from "./HoverArrowBtn";
 import { toggleTheme } from "../utils/themetoggler";
+import { logout } from "../store/features/userSlice";
+import { toast } from "react-toastify";
 
 const navLinks = [
   {
@@ -50,10 +52,23 @@ const Navbar = () => {
   
   const menu = useSelector((state) => state.menu.value)
   const islight = useSelector((state)=>state.theme.value)
-  const {isAuthenticated} = useSelector((state)=>state.user)
+  const {isAuthenticated , loading , status } = useSelector((state)=>state.user)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const handleTheme = ()=>{
         dispatch(toggleTheme())
+  }
+  const handleLogout = async()=>{
+      try {
+         await dispatch(logout()).unwrap()
+         toast.success(status)
+         navigate('/')
+
+      } catch (error) {
+        toast.error(status)
+        
+      }
+
   }
   const handleMenuClick = () => {
   
@@ -88,7 +103,7 @@ const Navbar = () => {
                 );
               })}
               {
-                isAuthenticated ? <HoverArrowBtn children={'Log out'} desti={'/auth/login'} />: <NavBtn/>
+                isAuthenticated ? <HoverArrowBtn children={'Log out'} onclick={handleLogout} />: <NavBtn/>
                
                 
               }

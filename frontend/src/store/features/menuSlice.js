@@ -11,12 +11,10 @@ export const menuSlice = createSlice({
         isVisible: (state)=>{
             state.value = !state.value
         },
-        isHidden :(state)=>{
-            state.value = !state.value
-        }
+       
     }
 })
 
-export const {isVisible , isHidden} = menuSlice.actions
+export const {isVisible} = menuSlice.actions
 
 export default menuSlice.reducer

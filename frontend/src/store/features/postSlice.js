@@ -39,8 +39,12 @@ export const generate = createAsyncThunk(
    
     try {
       const response = await upload(credentials);
-      const data = await response;
-      
+      console.log(response)
+      const data = await response.json();
+      console.log(data)
+      if(!response.ok){
+        return rejectWithValue(data.message)
+      }
       // const data = 'hello'
       return data
     } catch (error) {

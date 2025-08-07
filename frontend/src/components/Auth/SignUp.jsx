@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../store/features/userSlice";
+import { loginUser, signupUser } from "../../store/features/userSlice";
 import { toast } from 'react-toastify';
+import { signup } from "../../services/api/signupApi";
 
 
 const SignUp = () => {
@@ -13,24 +14,25 @@ const SignUp = () => {
   } = useForm();
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const {user,loading,error} = useSelector((state)=>state.user)
+  const {user,loading,error,status} = useSelector((state)=>state.user)
   
   
   const SubmitHandler = async(data)=>{
     console.log(data)
        try {
-       await dispatch(loginUser(data)).unwrap(); // Unwrap to properly handle errors
-       navigate('/dashboard');
-       toast('loggged in successfully')
+       await dispatch(signupUser(data)).unwrap(); // Unwrap to properly handle errors
+       navigate('/');
+        // toast('loggged in successfulldffdy')
+        toast.success(status)
        
-    } catch (err) {
-      console.log(err)
-      toast(error)
+    } catch(err) {
+      console.log(error)
+      toast.error(err)
     }
   
 
   }
-console.log(user)
+
   return (
     <div className="h-full xl:w-5xl  p-2 mx-auto "> <h1 className="text-center text-accent-light dark:text-accent-dark mt-10 text-3xl">
       Hola amigo!

@@ -41,9 +41,9 @@ const Login = () => {
     </h1>
       <form className="flex flex-col h-fit mt-15 w-10/11 gap-5 mx-auto items-center justify-center">
       <div className="flex flex-col gap-2 w-3/6 not-md:w-3/4">
-          <label htmlFor="usernameInp"> UserName </label> 
-        <input id="usernameInp" className="p-3 outline-none  bg-secondary-light dark:bg-secondary-dark shadow-lg/10 shadow-balck rounded-md " {...register("username", { required: true })} />
-        {errors.username && <span>This field is required</span>}
+          <label htmlFor="usernameInp"> email </label> 
+        <input id="usernameInp" className="p-3 outline-none  bg-secondary-light dark:bg-secondary-dark shadow-lg/10 shadow-balck rounded-md " {...register("email", { required: true })} />
+        {errors.email && <span>This field is required</span>}
       </div>
        <div className="flex flex-col gap-2 w-3/6 not-md:w-3/4">
              <label htmlFor="passWordInp">Password</label>
