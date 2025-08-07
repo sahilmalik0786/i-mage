@@ -80,8 +80,8 @@ const Navbar = () => {
   
   return (
     <nav className=" w-full overflow-hidden sticky top-0 h-16 flex items-center px-3 py-2 dark:text-white transition-colors duration-300 bg-secondary-light dark:bg-secondary-dark">
-      <div className={`${location.pathname === '/dashboard' ? 'w-full px-3' : 'xl:w-5xl '} w-full flex items-center justify-between mx-auto`}>
-        <div className="select-none ">
+      <div className={`${location.pathname === '/dashboard' ? 'w-full px-3' : 'xl:w-5xlz'} w-full flex items-center justify-between mx-auto`}>
+        <div className="select-none">
           <h1>I-mage.io</h1>
         </div>
         <div>

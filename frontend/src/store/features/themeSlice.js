@@ -8,7 +8,7 @@ export const themeSlice = createSlice({
   reducers: {
     themeToggler: (state) => {
       state.value = !state.value;
-     
+      
     },
   },
 });
