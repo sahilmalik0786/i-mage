@@ -52,7 +52,7 @@ const Sidebar = ({collapsed , toggle}) => {
             <div className='mt-1 bg-secondary-light dark:bg-secondary-dark p-1 rounded h-8/12 pb-5'> history
 <div className=' mt-2 rounded p-1 flex i gap-1 flex-col h-11/12 overflow-y-auto scrollbar-hide'>
               
-              {userhistory.length > 0 ?  userhistory.map((el,i)=>{
+              {Array.isArray(userhistory) && userhistory.length > 0 ?  userhistory.map((el,i)=>{
                return <HistorySection data={el} />
               })
                : 'there is no usage'}
