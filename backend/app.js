@@ -11,9 +11,9 @@ const postroutes = require('./src/routes/post.routes')
 const app = express()
 
 const config = {
-      origin: process.env.FRONTEND_URL || 'http://localhost:5173', // Your frontend URL
-    credentials: true, // This allows cookies to be sent
-    methods: ['GET', 'POST', 'PUT', 'DELETE']
+      origin: process.env.FRONTEND_URL || 'http://localhost:5173/' ,// Your frontend URL
+      credentials: true, // This allows cookies to be sent
+      methods: ['GET', 'POST', 'PUT', 'DELETE']
 }
 connectToDb()
 

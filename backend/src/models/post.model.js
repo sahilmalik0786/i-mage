@@ -8,3 +8,7 @@ const postSchema = new mongoose.Schema({
         ref: "users"
     }
 })
+
+const postModel = mongoose.model('post',postSchema)
+
+module.exports = postModel

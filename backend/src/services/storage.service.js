@@ -12,7 +12,7 @@ async function uploadImg(file) {
     imagekit.upload(
       {
         file: file.buffer.toString('base64'),
-        fileName: `caption-${Date.now()}-${req.user.id}.jpg`,
+        fileName: `caption-${Date.now()}-${'hllleo'}.jpg`,
         folder: "caption_generator",
         useUniqueFileName: false
       },

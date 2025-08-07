@@ -1,37 +1,44 @@
 const userModel = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const sendVerificationEmail = require('../services/mail_verification.service');
 
+
+
+// register/signup
 async function registerController(req, res) {
-  const { username , password } = req.body;
- 
-  const isUserAlreadyExists = await userModel.findOne({ username });
- 
+  const { username , password , email} = req.body;
+  
+  const isUserAlreadyExists = await userModel.findOne({ email:email });
+  
   if(isUserAlreadyExists){
     return res.status(401).json({
-      message: "user is already exists",
+      message: "this email is already registered",
     });
   }
- 
-  
   const user = await userModel.create({
     username,
+    email,
     password: await bcrypt.hash(password, 10),
+    
   });
+  const verificationToken = jwt.sign({id:user._id},process.env.JWT_EMAIL_VERIFICATION_KEY)
+  user.mailVerifyToken = verificationToken
+  await user.save()
+  // await sendVerificationEmail(user.email , verificationToken)
 
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY);
-  res.cookie("token", token);
-
-  res.status(201).json({
-    message: "user created successfully",
-    user,
-  });
+   res.status(201).json({
+    message: "user created successfully !please verify your email",
+    user
+   });
 }
 
-async function loginController(req, res) {
-  const { username, password } = req.body;
 
-  const user = await userModel.findOne({ username });
+//login 
+async function loginController(req, res) {
+  const { email, password } = req.body;
+
+  const user = await userModel.findOne({ email });
 
   if (!user) {
     return res.status(401).json({
@@ -41,17 +48,17 @@ async function loginController(req, res) {
 
   const isPasswordValid = await bcrypt.compare(password, user.password);
   
- if (!isPasswordValid) {
+  if (!isPasswordValid) {
       return res.status(401).json({
         success: false,
         message: "Invalid credentials", // Same message as above
       });
     }
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY);
- res.cookie('token', token, {
+  res.cookie('token', token, {
   httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+            sameSite:'lax',
             maxAge: 24 * 60 * 60 * 1000,
             path: '/'
 });
@@ -60,8 +67,63 @@ async function loginController(req, res) {
     user,
   });
 }
+
+//verifyemail
+async function verifyEmailController(req, res) {
+  const { token } = req.query;
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_EMAIL_VERIFICATION_KEY);
+    console.log(decoded.id)
+    console.log('jii')
+    const user = await userModel.findById(decoded.id);
+    
+    if (!user || user.mailVerifyToken !== token) {
+      return res.status(400).json({ message: 'Invalid verification token' });
+    }
+    
+    user.isVerified = true;
+    user.mailVerifyToken = null;
+    await user.save();
+         
+    res.status(200).json({ message: 'Email verified successfully' });
+  } catch (err) {
+    return res.status(400).json({ message: 'Token expired r invalid' });
+  }
+//   let decoded;
+// try {
+//   decoded = jwt.verify(token, process.env.JWT_EMAIL_VERIFICATION_KEY);
+//   console.log('Decoded token:', decoded);
+//   res.status(200).json({
+//     message:'verified'
+//   })
+// } catch (err) {
+//   console.error('Token verification failed:', err.message);
+//   return res.status(400).json({ message: 'Invalid or expired token' });
+// }
+}
+
+//send email for verfication 
+async function emailVerify(req,res) {
+    const {email} = req.body
+    const user = await userModel.findOne({email})
+    console.log(user)
+    if(user.isVerified){
+      return res.status(401).json({
+        message:'user is already verified'
+      })
+    }
+   await sendVerificationEmail(user.email , user.mailVerifyToken)
+   res.status(200).json({
+    message:'email has sent check your inbox to verify'
+   })
+   
+}
+
+//to ensure persist login 
 async function verify(req,res) {
    const user = req.user
+   
    res.status(200).json({
     message:'success',
     user
@@ -69,4 +131,20 @@ async function verify(req,res) {
   
 }
 
-module.exports = { registerController ,  loginController ,verify};
+//logout controller 
+async function logout(req , res) {
+   
+  res.clearCookie('token', {
+    httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite:'lax',
+           
+            
+  });
+
+  return res.status(200).json({ message: 'Logged out successfully' });
+   
+  
+}
+
+module.exports = { registerController ,  loginController ,verify ,verifyEmailController , emailVerify ,logout};
