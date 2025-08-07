@@ -16,10 +16,10 @@ const {role} = req.body
  
  const response = await generateImageCaption(file,rol)
 //  const captions =  await resformater(response)
-// const upload = await uploadImg(file)
+const upload = await uploadImg(file)
 const post = await postModel.create({
-  image:'kk',
-  // caption:response,
+  image:upload.url,
+  caption:response,
   user:user._id
 })
    await userModel.findByIdAndUpdate(user._id,{
