@@ -3,6 +3,7 @@ export const emailVerify = async (data) => {
   try {
      const res = await fetch("https://i-mage-enwv.onrender.com/api/auth/verifyEmail", {
       method: "POST",
+      credentials:'include',
       headers:{
         "Content-Type": "application/json",
       },

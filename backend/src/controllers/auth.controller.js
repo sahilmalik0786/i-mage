@@ -105,19 +105,33 @@ async function verifyEmailController(req, res) {
 
 //send email for verfication 
 async function emailVerify(req,res) {
-    const {email} = req.body
-    const user = await userModel.findOne({email})
-    console.log(user)
-    if(user.isVerified){
-      return res.status(401).json({
-        message:'user is already verified'
-      })
+     try {
+    const { email } = req.body;
+
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
     }
-   await sendVerificationEmail(user.email , user.mailVerifyToken)
-   res.status(200).json({
-    message:'email has sent check your inbox to verify'
-   })
-   
+
+    if (user.isVerified) {
+      return res.status(401).json({
+        message: 'User is already verified'
+      });
+    }
+
+    await sendVerificationEmail(user.email, user.mailVerifyToken);
+
+    res.status(200).json({
+      message: 'Email has been sent. Check your inbox to verify.'
+    });
+  } catch (error) {
+    console.error('emailVerify error:', error); // ✅ log the actual error
+    res.status(500).json({
+      message: 'Internal Server Error',
+      error: error.message || error
+    });
+  }
 }
 
 //to ensure persist login 
