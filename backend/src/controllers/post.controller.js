@@ -27,7 +27,7 @@ const post = await postModel.create({
     history: {
       action: 'generate the content',
       tag:`${rol?.name}`,
-      post: post._id
+      post: post._id  
     }
   }
  })
