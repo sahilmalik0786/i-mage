@@ -116,9 +116,9 @@ export const verifyAuth = createAsyncThunk("verfify/user", async (_ , {rejectWit
 export const signupUser = createAsyncThunk('signup/user' , async (credentials , {rejectWithValue})=>{
   try{
     const res = await signup(credentials)
-    console.log(res)
-    const data =  ( await res.json())
-    console.log(data)
+   
+    const data =   await res.json()
+    
     
     if(!res.ok){
      return rejectWithValue(data?.message)

@@ -18,7 +18,7 @@ const SignUp = () => {
   
   
   const SubmitHandler = async(data)=>{
-    console.log(data)
+    // console.log(data)
        try {
        await dispatch(signupUser(data)).unwrap(); // Unwrap to properly handle errors
        navigate('/');

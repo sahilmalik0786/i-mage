@@ -9,23 +9,23 @@ const sendVerificationEmail = require('../services/mail_verification.service');
 async function registerController(req, res) {
   const { username , password , email} = req.body;
   
-  const isUserAlreadyExists = await userModel.findOne({ email:email });
+  const isUserAlreadyExists = await userModel.findOne({ email });
   
   if(isUserAlreadyExists){
     return res.status(401).json({
       message: "this email is already registered",
     });
   }
+  const verificationToken = jwt.sign({id:user._id},process.env.JWT_EMAIL_VERIFICATION_KEY)
   const user = await userModel.create({
     username,
     email,
     password: await bcrypt.hash(password, 10),
-    
+    mailVerifyToken: verificationToken
   });
-  const verificationToken = jwt.sign({id:user._id},process.env.JWT_EMAIL_VERIFICATION_KEY)
-  user.mailVerifyToken = verificationToken
-  await user.save()
-  // await sendVerificationEmail(user.email , verificationToken)
+
+  
+
 
    res.status(201).json({
     message: "user created successfully !please verify your email",
