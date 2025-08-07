@@ -12,7 +12,7 @@ const EmailVerify = () => {
     if (!token) return setStatus("No token found.");
     const verify = async () => {
       await fetch(
-        `http://localhost:3000/api/auth/verify-email?token=${token}`,
+        `https://i-mage-enwv.onrender.com/api/auth/verify-email?token=${token}`,
         {
           method: "GET",
         }
