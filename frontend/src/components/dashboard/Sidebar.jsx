@@ -25,7 +25,7 @@ const Sidebar = ({collapsed , toggle}) => {
       try {
         const data = {email:user.email}
         await dispatch(verfifyEmail(data)).unwrap()
-        toast.success(status)
+        toast.success('Mail has been sent')
         
       } catch (error) {
         toast.error(status)

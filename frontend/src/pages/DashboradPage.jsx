@@ -8,10 +8,10 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 
 export default function DashboardPage() {
-  const {isVerified} = useSelector((state)=>state.user)
+  const {user} = useSelector((state)=>state.user)
   useEffect(()=>{
      const sendToast =()=>{
-      if(!isVerified){
+      if(!user.isVerified){
         toast('please verify your email by clicking on verify btn that is on sidebar')
       }
      }
