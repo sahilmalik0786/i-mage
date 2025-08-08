@@ -10,7 +10,12 @@ import { toast } from "react-toastify";
 export default function DashboardPage() {
   const {isVerified} = useSelector((state)=>state.user)
   useEffect(()=>{
-    !isVerified && toast('please verify your email to use the application')
+     const sendToast =()=>{
+      if(!isVerified){
+        toast('please verify your email by clicking on verify btn that is on sidebar')
+      }
+     }
+     sendToast()
   },[])
   const { initialized } = useSelector((state) => state.post);
   return (
