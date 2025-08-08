@@ -4,8 +4,14 @@ import { useSelector } from "react-redux";
 import DashLayout from "../components/dashboard/DashLayout";
 import FileUpload from "../components/dashboard/FileUpload";
 import ResponsePreviewer from "../components/dashboard/ResponsePreviewer";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 export default function DashboardPage() {
+  const {isVerified} = useSelector((state)=>state.user)
+  useEffect(()=>{
+    !isVerified && toast('please verify your email to use the application')
+  },[])
   const { initialized } = useSelector((state) => state.post);
   return (
     <div className="max-h-[calc(100vh-4rem)] flex flex-col">

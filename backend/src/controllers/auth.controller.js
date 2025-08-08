@@ -25,7 +25,7 @@ async function registerController(req, res) {
   const verificationToken = jwt.sign({id:user._id},process.env.JWT_EMAIL_VERIFICATION_KEY)
    user.mailVerifyToken = verificationToken
    await user.save()
-  
+   
 
 
    res.status(201).json({
