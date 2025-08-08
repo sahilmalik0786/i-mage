@@ -16,14 +16,15 @@ async function registerController(req, res) {
       message: "this email is already registered",
     });
   }
-  const verificationToken = jwt.sign({id:user._id},process.env.JWT_EMAIL_VERIFICATION_KEY)
   const user = await userModel.create({
     username,
     email,
     password: await bcrypt.hash(password, 10),
-    mailVerifyToken: verificationToken
+    
   });
-
+  const verificationToken = jwt.sign({id:user._id},process.env.JWT_EMAIL_VERIFICATION_KEY)
+   user.mailVerifyToken = verificationToken
+   await user.save()
   
 
 
